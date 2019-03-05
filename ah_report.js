@@ -27,23 +27,28 @@
       information for the donor
       
 */
+//this is the initial value for the donationTotal variable
 var donationTotal = 0;
 
 donors.forEach(calcSum);
+// .toLocaleString is the method to get the commas after where the thousand marks belong. Concatenated donors and donationTotal for the variables to be added to the code in two tds.
+var summaryTable = "<table> <tr><th>Donors</th> <td>" + donors.length + "</td></tr> <tr><th>Total Donations</th> <td>$" + donationTotal.toLocaleString() + "</td> </tr> </table>";
 
-var summaryTable = "<table> <tr><th>Donors</th> <td>" + donors.length + "</td></tr> <tr><th>Total Donations</th> <td>$" + donationTotal + "</td> </tr> </table>";
-
-donationTotal = donationTotal.toLocaleString();
 
 document.getElementById('donationSummary').innerHTML = summaryTable;
+// majordonors variable is declared to be the same as donors.filter(findMajorDonors) where the callback is the function findMajorDonors for the code to run. FIlter is the method that displays only the ones which the parameters specify.
+var majorDonors = donors.filter(findMajorDonors);
 
-var MajorDonors = doors.filter(findMajorDonors);
-
-MajorDonors.sort(donorSortDescending());
-
+majorDonors.sort(donorSortDescending);
+// donorTable is set to an initial value and it is of a text string.
 var donorTable = "<table> <caption>Major Donors</caption> <tr> <th>Donation</th><th>Donor ID</th> <th>Date</th><th>Name</th><th>Address</th> <th>Phone</th><th>E-mail</th> </tr>";
 
-
+//this is using the MajorDonors variable with the foreach method to work on the function writeDonorRow. The callback function is where the writeDonorRow comes in place. This is being called back into the foreach method so that the function will run for each.
+majorDonors.forEach(writeDonorRow);
+//this is to end the table in donorTable so we can add the text string to it
+donorTable += "</table>";
+// this is to show everything in the code, because document gets the code from the page document and getelementbyid is where we select the div of donorTable.
+document.getElementById('donorTable').innerHTML = donorTable;
 
 
 
